@@ -20,7 +20,8 @@ V1_mean_temp = mean(V1_Mag);
 V1_mean = mean(V1_mean_temp);
 threshold = 0.5*V1_mean; % needs to be changed if noise cancellation is too much
 
-V1_Red_Mag = threshold_set(V1_Mag,threshold);
+[sizeLen,sizeWid] = size(V1_Mag);
+V1_Red_Mag = threshold_set(V1_Mag,threshold,sizeLen,sizeWid);
 
 
 
