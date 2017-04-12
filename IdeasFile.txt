@@ -1,0 +1,8 @@
+It's mentioned in the lecture "features" in Majid's lectures that
+
+"Common to extract features by
+measuring the power in specific
+regions of the spectrum."
+
+This makes me think we might need to first extract a part of the fourier space using a mask/filter
+then from that area, calculate the "power" and use that to make a feature
