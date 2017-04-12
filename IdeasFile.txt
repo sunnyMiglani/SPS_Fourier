@@ -12,3 +12,26 @@ Trying to extract features with the following
 T - Box in the centre
 S - Ring
 V - Two sectors on either side
+
+
+
+
+=================== 
+Pseudo Code for the formulae: 
+
+Ring :
+
+	if( sqrt(sqr(r_a)-sqr(u)) <= V) && if( sqrt(sqr(r_b)-sqr(u)) >= V)
+				{
+					// Notice the values senpai 
+
+				}
+		else // Move on
+
+
+	functions in matlab : 
+		Square Root : sqrt(x)
+
+		Square :: you can just type r_a * r_a cant you?
+
+		Absolute : abs(z) 
