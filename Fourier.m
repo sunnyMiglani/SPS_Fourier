@@ -1,7 +1,7 @@
 
 %#just change the file path to load the image.
-v1 = imread('characters/V2.GIF'); s1 = imread('characters/S2.GIF'); t1 = imread('characters/T2.GIF');
-ftv1 = fftshift( fft2(double(v1)) ); fts1 = fftshift( fft2(double(s1)) ); ftt1 = fftshift( fft2(double(t1)) );
+v1 = imread('characters/V2.GIF'); s1 = imread('characters/S2.GIF'); t1 = imread('characters/T2.GIF'); %reading in the images 
+ftv1 = fftshift( fft2(double(v1)) ); fts1 = fftshift( fft2(double(s1)) ); ftt1 = fftshift( fft2(double(t1)) ); %applying fourier transform and fourier shift
 
 %%plotting the phase%%
 V1_Phase = angle(ftv1); imagesc(V1_Phase);    % #angle() returns matrix of radians, plotted here
@@ -11,9 +11,15 @@ imshow(Reconstruct_Just_Phase) %It shows outline but is hard to see
 
 %%Magnitude%%
 V1_Mag = abs(ftv1);
+S1_Mag = abs(fts1);
+T1_Mag = abs(ftt1);
+
+
 
 %%%Figures for each letter, uncomment to show%%%
-%figure('Name','Fourier space of V');
-%imagesc(log(abs(ftv1)+1)); figure('Name','Fourier space of S');
-%imagesc(log(abs(fts1)+1)); figure('Name','Fourier space of T');
-%imagesc(log(abs(ftt1)+1));
+figure('Name','Fourier space of V');
+imagesc(log(V1_Mag+1));
+figure('Name','Fourier space of S');
+imagesc(log(S1_Mag+1));
+figure('Name','Fourier space of T');
+imagesc(log(T1_Mag+1));
