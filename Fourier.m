@@ -18,6 +18,10 @@ V1_Mag = abs(ftv1);
 S1_Mag = abs(fts1);
 T1_Mag = abs(ftt1);
 
+V1_Phase = angle(ftv1);
+S1_Phase = angle(fts1);
+T1_Phase = angle(ftt1);
+
 
 %Extrac a box region.
 box = Extract_Box_Original_Size(ftt1, 100, 300, 200, 500);
@@ -41,6 +45,33 @@ T1_mean = mean(mean(T1_Mag));
 thresholdT1 = 0.195*T1_mean;
 T1_Red_Mag = noise_filter(T1_Mag,thresholdT1);
 
+% This is done to go back from the fourier space to real image 
+FreqDomain = V1_Mag.*exp(1i*V1_Phase);
+x_image = ifft2(ifftshift(FreqDomain)); % # Perform the inverse fft
+figure('Name','Image Before Change');
+imshow(x_image);
+
+FreqDomainChanged = V1_Red_Mag.*exp(1i*V1_Phase);
+x_image = ifft2(ifftshift(FreqDomainChanged)); % # Perform the inverse fft
+figure('Name','Image After Change');
+imshow(x_image);
+
+kernel = [-1 -1 -1;-1 8 -1;-1 -1 -1];
+filteredImage = imfilter(v1, kernel, 'same');
+figure('Name','Kernel Change');
+imagesc(filteredImage);
+
+
+fx = [-1 0 1; -2 0 2; -1 0 1];
+fy = [1 2 1; 0 0 0; -1 -2 -1];
+gx = conv2(double(v1),double(fx))/8;
+gy = conv2(double(v1),double(fy))/8;
+mag = sqrt((gx).^2+(gy).^2);
+ang = atan(gy./gx);
+figure('Name','Magnitude'); imagesc(mag); axis off; colormap gray
+figure('Name','Angle'); imagesc(ang); axis off; colormap gray
+
+
 
 
 %%%Figures for each letter, uncomment to show%%%
@@ -56,6 +87,6 @@ figure('Name','Fourier space of T reduced');
 imagesc(log(T1_Red_Mag+1));
 figure('Name','Fourier space of T not reduced');
 imagesc(log(T1_Mag+1));
-%figure('Name','Fourier space of T');
-%imagesc(log(T1_Mag+1));
+figure('Name','Fourier space of T');
+imagesc(log(T1_Mag+1));
 
