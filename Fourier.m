@@ -56,6 +56,21 @@ x_image = ifft2(ifftshift(FreqDomainChanged)); % # Perform the inverse fft
 figure('Name','Image After Change');
 imshow(x_image);
 
+kernel = [-1 -1 -1;-1 8 -1;-1 -1 -1];
+filteredImage = imfilter(v1, kernel, 'same');
+figure('Name','Kernel Change');
+imagesc(filteredImage);
+
+
+fx = [-1 0 1; -2 0 2; -1 0 1];
+fy = [1 2 1; 0 0 0; -1 -2 -1];
+gx = conv2(double(v1),double(fx))/8;
+gy = conv2(double(v1),double(fy))/8;
+mag = sqrt((gx).^2+(gy).^2);
+ang = atan(gy./gx);
+figure('Name','Magnitude'); imagesc(mag); axis off; colormap gray
+figure('Name','Angle'); imagesc(ang); axis off; colormap gray
+
 
 
 
