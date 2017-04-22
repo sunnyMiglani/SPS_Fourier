@@ -11,8 +11,6 @@ ftv1 = fftshift( fft2(double(v1)) ); fts1 = fftshift( fft2(double(s1)) ); ftt1 =
 %Reconstruct_Just_Phase = ifft2(ifftshift(x)); % # Perform the inverse fft
 %imshow(Reconstruct_Just_Phase); %It shows outline but is hard to see
 
-
-
 %%Magnitude%%
 V1_Mag = abs(ftv1);
 S1_Mag = abs(fts1);
