@@ -15,6 +15,14 @@ V - Two sectors on either side
 
 
 
+==================
+TODO:
+
+Change the noise_filter function to use some form of masking rahter than the current solution of setting everything
+to 0s. 
+Suggested things are butterworth's filter.
+
+
 
 =================== 
 Pseudo Code for the formulae: 
