@@ -2,8 +2,10 @@ function spectral_feature = Extract_sector( spectral_region, radius, theta1, the
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-    spectral_feature = zeros('like',spectral_region);
+
     [len,width] = size(spectral_region);
+    spectral_feature = complex(double(zeros(h,w)));
+    
     
     % Formula's 
     % 1 -> p^2 = u^2 + v^2
