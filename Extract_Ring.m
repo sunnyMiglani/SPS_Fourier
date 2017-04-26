@@ -1,4 +1,4 @@
-function [ Ring ] = Extract_Ring(spectral_Region, radius_Outer, radius_Inner )
+function  Ring  = Extract_Ring(spectral_Region, radius_Outer, radius_Inner )
 %Given an origin and two radi, a ring can be extracted from the fourier
 %space by testing if a point lies in the circle definied by the outer
 %radius, then testing if this point does NOT lie in the circle defined by
