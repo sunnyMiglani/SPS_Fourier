@@ -24,7 +24,7 @@ figure('Name', 'box'); imshow(real(inverse_box));  axis off; colormap gray
 ring = Extract_Ring(ftt1, 150, 50);
 ring_power = Sum_Power(abs(ring));
 inverse_ring = ifft2(ifftshift(ring));
-figure('Name', 'ring'); imagesc(real(inverse_ring));  axis off; colormap gray
+figure('Name', 'ring'); imagesc(log(abs(ring)+1));  axis off; colormap gray
 
 
 
