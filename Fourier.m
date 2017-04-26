@@ -28,15 +28,15 @@ inverse_ring = ifft2(ifftshift(ring));
 
 
 
-% convolution gradiant 
-fx = [-1 0 1; -2 0 2; -1 0 1];
-fy = [1 2 1; 0 0 0; -1 -2 -1];
-gx = conv2(double(v1),double(fx))/8;
-gy = conv2(double(v1),double(fy))/8;
-mag = sqrt((gx).^2+(gy).^2);
-ang = atan(gy./gx);
-%figure('Name','Magnitude'); imagesc(mag); axis off; colormap gray
-%figure('Name','Angle'); imagesc(ang); axis off; colormap gray
+% % convolution gradiant 
+% fx = [-1 0 1; -2 0 2; -1 0 1];
+% fy = [1 2 1; 0 0 0; -1 -2 -1];
+% gx = conv2(double(v1),double(fx))/8;
+% gy = conv2(double(v1),double(fy))/8;
+% mag = sqrt((gx).^2+(gy).^2);
+% ang = atan(gy./gx);
+% %figure('Name','Magnitude'); imagesc(mag); axis off; colormap gray
+% %figure('Name','Angle'); imagesc(ang); axis off; colormap gray
 
 
 [S, V, T] = extractSpectralFeature();
