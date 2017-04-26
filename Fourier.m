@@ -41,6 +41,24 @@ ang = atan(gy./gx);
 
 [S, V, T] = extractSpectralFeature();
 
+Training_Data = [S; V; T];
+
+Cluster_S = mean(S); 
+Cluster_V = mean(V);
+Cluster_T = mean(T);
+
+scatter( S(:,1), S(:, 2), 'filled', 'ro');
+hold on
+scatter( V(:,1), V(:, 2), 'filled', 'go');
+scatter( T(:,1), T(:, 2), 'filled', 'bo');
+
+plot(Cluster_S(:,1),Cluster_S(:,2), 'ro', 'MarkerSize', 7);
+plot(Cluster_V(:,1),Cluster_V(:,2), 'go', 'MarkerSize', 7);
+plot(Cluster_T(:,1),Cluster_T(:,2), 'bo', 'MarkerSize', 7);
+
+
+
+
 %%%Figures for each letter, uncomment to show%%%
 %figure('Name','Fourier space of V not reduced');
 %imagesc(log(V1_Mag+1));
