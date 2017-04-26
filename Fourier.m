@@ -43,20 +43,22 @@ ang = atan(gy./gx);
 
 Training_Data = [S; V; T];
 
-Cluster_S = mean(S); 
-Cluster_V = mean(V);
-Cluster_T = mean(T);
+Cluster_S = mean(S,1); 
+Cluster_V = mean(V,1);
+Cluster_T = mean(T,1);
 
+meanArray = [Cluster_S; Cluster_V; Cluster_T];
+%voronoi(cent(:,1), cent(:,2));
+hold on;
 scatter( S(:,1), S(:, 2), 'filled', 'ro');
-hold on
+
 scatter( V(:,1), V(:, 2), 'filled', 'go');
 scatter( T(:,1), T(:, 2), 'filled', 'bo');
 
 plot(Cluster_S(:,1),Cluster_S(:,2), 'ro', 'MarkerSize', 7);
 plot(Cluster_V(:,1),Cluster_V(:,2), 'go', 'MarkerSize', 7);
 plot(Cluster_T(:,1),Cluster_T(:,2), 'bo', 'MarkerSize', 7);
-
-
+voronoi(meanArray(:,1), meanArray(:,2));
 
 
 %%%Figures for each letter, uncomment to show%%%

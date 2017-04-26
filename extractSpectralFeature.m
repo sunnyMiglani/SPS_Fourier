@@ -25,7 +25,7 @@ for i = 3 : numel(V_files)
 
     Image = imread(strcat(V_Path,V_files(i).name));                                       %Read the file name
     FFTM  = fftshift( fft2(double(Image)));                                %FFT
-    Box = Extract_Box(FFTM, 30, 70, 240, 400);                             %Get Feature
+    Box = Extract_Box(FFTM, 10, 70, 240, 400);                             %Get Feature
     Box_Power = Sum_Power(abs(Box));                                       %Sum the powers to get the value for this feature
     Ring = Extract_Ring(FFTM, 150, 50);
     Ring_Power = Sum_Power(abs(Ring));
@@ -36,7 +36,7 @@ for i = 3 : numel(T_files)
 
     Image = imread(strcat(T_Path,T_files(i).name));                                       %Read the file name
     FFTM  = fftshift( fft2(double(Image)));                                %FFT
-    Box = Extract_Box(FFTM, 30, 70, 240, 400);                             %Get Feature
+    Box = Extract_Box(FFTM, 10, 70, 240, 500);                             %Get Feature
     Box_Power = Sum_Power(abs(Box));                                       %Sum the powers to get the value for this feature
     Ring = Extract_Ring(FFTM, 150, 50);
     Ring_Power = Sum_Power(abs(Ring));
