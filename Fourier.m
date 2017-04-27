@@ -20,11 +20,11 @@ box_power = Sum_Power(abs(box));
 inverse_box = ifft2(ifftshift(box));
 %figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
 
- %extract a ring region
- ring = Extract_Ring(fts1, 100 , 199);
- ring_power = Sum_Power(abs(ring));
- inverse_ring = ifft2(ifftshift(ring));
- figure('Name', 'ring'); imagesc(log(abs(ring)+1));  axis off;
+%  %extract a ring region
+%  ring = Extract_Ring(fts1, 200 , 100);
+%  ring_power = Sum_Power(abs(ring));
+%  inverse_ring = ifft2(ifftshift(ring));
+%  figure('Name', 'ring'); imagesc(log(abs(ring)+1));  axis off;
 
 
 
@@ -59,6 +59,27 @@ plot(Cluster_S(:,1),Cluster_S(:,2), 'ro', 'MarkerSize', 7);
 plot(Cluster_V(:,1),Cluster_V(:,2), 'go', 'MarkerSize', 7);
 plot(Cluster_T(:,1),Cluster_T(:,2), 'bo', 'MarkerSize', 7);
 voronoi(meanArray(:,1), meanArray(:,2));
+
+
+
+
+ring_Outer = 200; ring_Inner = 75;
+box1u0 = 1; box1u1 = 140; v0 = 300; v1 = 375; 
+box2u0 = 240; box2u1 = 400;
+
+Image = imread('TestdataT/TestTT1.GIF');                        %Read the file name
+    FFTM  = fftshift( fft2(double(Image)));                                %FFT
+    %    figure
+    % imagesc(log(abs(FFTM)+1))
+    BoxOne = Extract_Box(FFTM, box1u0, box1u1, v0, v1);                               %Get Feature
+    BoxTwo = Extract_Box(FFTM, box2u0, box2u1, v0, v1);
+    Box_Power = Sum_Power(abs(BoxOne)) + Sum_Power(abs(BoxTwo));                                       %Sum the powers to get the value for this feature
+    Ring = Extract_Ring(FFTM, ring_Outer, ring_Inner);
+    Ring_Power = Sum_Power(abs(Ring));
+    
+    testT = [Box_Power Ring_Power]
+
+plot(Box_Power,Ring_Power, 'bs', 'MarkerSize', 7);
 
 
 %%%Figures for each letter, uncomment to show%%%

@@ -10,11 +10,11 @@ function  Ring  = Extract_Ring(spectral_Region, radius_Outer, radius_Inner )
 midx = x/2; midy = y/2; %The origin
 Ring = complex(double(zeros(y,x)));
 %Ring = spectral_Region;
-for i = 1 : x %loop width
-    for j = 1 : y % loop height
-        dist = sqrt( (midx - i)^2 + (midy - j)^2 ); %Distaance of point from origin (Circle centre)
+for i = 1 : y %loop width
+    for j = 1 : x % loop height
+        dist = sqrt( (midx - j)^2 + (midy - i)^2 ); %Distaance of point from origin (Circle centre)
         if (dist <= radius_Outer) && (dist >= radius_Inner) %Check if point lies in outer circle
-            Ring(i,j) = spectral_Region(j,i);
+            Ring(i,j) = spectral_Region(i,j);
         end
     end
 end

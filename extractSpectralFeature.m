@@ -7,7 +7,7 @@ T_files = dir('characters/Ts/');
 T_Path = 'characters/Ts/';
 
 %Variables so we can more easily modify spectral regions.
-ring_Outer = 200; ring_Inner = 100;
+ring_Outer = 200; ring_Inner = 75;
 box1u0 = 1; box1u1 = 140; v0 = 300; v1 = 375; 
 box2u0 = 240; box2u1 = 400;
 
