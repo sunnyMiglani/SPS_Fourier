@@ -20,11 +20,11 @@ box_power = Sum_Power(abs(box));
 inverse_box = ifft2(ifftshift(box));
 %figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
 
-%extract a ring region
-ring = Extract_Ring(ftt1, 127, 62);
-ring_power = Sum_Power(abs(ring));
-inverse_ring = ifft2(ifftshift(ring));
-%figure('Name', 'ring'); imagesc(log(abs(ring)+1));  axis off;
+ %extract a ring region
+ ring = Extract_Ring(fts1, 100 , 199);
+ ring_power = Sum_Power(abs(ring));
+ inverse_ring = ifft2(ifftshift(ring));
+ figure('Name', 'ring'); imagesc(log(abs(ring)+1));  axis off;
 
 
 
