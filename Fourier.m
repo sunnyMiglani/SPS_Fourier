@@ -60,26 +60,20 @@ plot(Cluster_V(:,1),Cluster_V(:,2), 'go', 'MarkerSize', 7);
 plot(Cluster_T(:,1),Cluster_T(:,2), 'bo', 'MarkerSize', 7);
 voronoi(meanArray(:,1), meanArray(:,2));
 
+lables_matrix = ['S';'S';'S';'S';'S';'S';'S';'S';'S';'S';'V';'V';'V';'V';'V';'V';'V';'V';'V';'V';'T';'T';'T';'T';'T';'T';'T';'T';'T';'T'];
+cell_labels = cellstr(lables_matrix);
 
+MdL = fitcknn(Training_Data,cell_labels,'NumNeighbors', 5, 'Standardize', 1);
+[labels,Test_Data] = test_knn(MdL);
 
+ClusterSIndices = find(labels == 'S');
+ClusterTIndices = find(labels == 'T');
+ClusterVIndices = find(labels == 'V');
 
-ring_Outer = 200; ring_Inner = 75;
-box1u0 = 1; box1u1 = 140; v0 = 300; v1 = 375; 
-box2u0 = 240; box2u1 = 400;
+ClusterS = [Test_Data(ClusterSIndices, 1), Test_Data(ClusterSIndices,2)];
+ClusterT = [Test_Data(ClusterTIndices, 1), Test_Data(ClusterTIndices,2)];
+ClusterV = [Test_Data(ClusterVIndices, 1), Test_Data(ClusterVIndices,2)];
 
-Image = imread('TestdataT/TestTT1.GIF');                        %Read the file name
-    FFTM  = fftshift( fft2(double(Image)));                                %FFT
-    %    figure
-    % imagesc(log(abs(FFTM)+1))
-    BoxOne = Extract_Box(FFTM, box1u0, box1u1, v0, v1);                               %Get Feature
-    BoxTwo = Extract_Box(FFTM, box2u0, box2u1, v0, v1);
-    Box_Power = Sum_Power(abs(BoxOne)) + Sum_Power(abs(BoxTwo));                                       %Sum the powers to get the value for this feature
-    Ring = Extract_Ring(FFTM, ring_Outer, ring_Inner);
-    Ring_Power = Sum_Power(abs(Ring));
-    
-    testT = [Box_Power Ring_Power]
-
-plot(Box_Power,Ring_Power, 'bs', 'MarkerSize', 7);
 
 
 %%%Figures for each letter, uncomment to show%%%
