@@ -1,0 +1,27 @@
+Information about S
+--------------------
+The most unique of the three, makes a "star" shape.
+Relying on high frequencies in S is probably our best bet, since S is
+alot curvier than the other letters we need to classify.
+
+
+
+Information about V
+--------------------
+much like "T" but rotated ~45'. the X made by V fans out more on the V's
+that have curves in them, for example V1 compared to V2.
+Kind of symmetric each side
+Most have a vertical "blank" region cutting through the middle (cause?)
+
+Information about T
+--------------------
+T's are very consistent
+The typical "X" made in the fourier space is rotated slightly for T's
+that have a sloping top, or a stem that slopes to the left.
+
+
+Idea::
+S relies on the high frequencies and is considerably different from the other
+two so take high frequencies(ring) as the first feature. The T and V are similar
+in many ways, however they have a large difference when it comes to T's
+horizontal line, so taking this as a feature distinguishes V from T

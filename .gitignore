@@ -5,6 +5,7 @@ __pycache__/
 
 # Matlab
 *.m~
+*.asv
 
 
 # C extensions
