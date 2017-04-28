@@ -20,7 +20,7 @@ box1u0 = 1; box1u1 = 125; v0 = 270; v1 = 370;
 
 for i = 3 : numel(S_files)
     Image = imread(strcat(S_Path,S_files(i).name));                        %Read the file name
-    FFTM  = fftshift( fft2(double(Image)));                                %FFT
+    FFTM  = log(abs(fftshift( fft2(double(Image))))+1); 
     BoxOne = Extract_Box(FFTM, box1u0, box1u1, v0, v1);                    %Get Feature
     Box_Power = Sum_Power(abs(BoxOne));           %Sum the powers to get the value for this feature
     Ring = Extract_Ring(FFTM, ring_Outer, ring_Inner);
@@ -34,7 +34,7 @@ end
 for i = 3 : numel(V_files)
 
     Image = imread(strcat(V_Path,V_files(i).name));                        %Read the file name
-    FFTM  = fftshift( fft2(double(Image)));                                %FFT
+    FFTM  = log(abs(fftshift( fft2(double(Image))))+1);                                %FFT
     BoxOne = Extract_Box(FFTM, box1u0, box1u1, v0, v1);                               %Get Feature
     Box_Power = Sum_Power(abs(BoxOne));                                       %Sum the powers to get the value for this feature
     Ring = Extract_Ring(FFTM, ring_Outer, ring_Inner);
@@ -48,7 +48,7 @@ end
 for i = 3 : numel(T_files)
 
     Image = imread(strcat(T_Path,T_files(i).name));                        %Read the file name
-    FFTM  = fftshift( fft2(double(Image)));                                %FFT
+    FFTM  = log(abs(fftshift( fft2(double(Image))))+1);                                %FFT
     %    figure
     % imagesc(log(abs(FFTM)+1))
     BoxOne = Extract_Box(FFTM, box1u0, box1u1, v0, v1);                               %Get Feature
