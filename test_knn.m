@@ -4,7 +4,7 @@ testFiles = dir('TestData/*.GIF');
 Path = 'TestData/';
 
 %Variables so we can more easily modify spectral regions.
-ring_Outer = 200; ring_Inner = 75;
+ring_Outer = 100; ring_Inner = 75;
 box1u0 = 1; box1u1 = 140; v0 = 300; v1 = 375; 
 box2u0 = 260; box2u1 = 400;
 

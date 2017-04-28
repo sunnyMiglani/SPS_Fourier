@@ -19,10 +19,10 @@ inverse_box = ifft2(ifftshift(box));
 %figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
 
 %  %extract a ring region
-%  ring = Extract_Ring(fts1, 200 , 100);
+%ring = Extract_Ring(fts1, 150 , 75);
 %  ring_power = Sum_Power(abs(ring));
 %  inverse_ring = ifft2(ifftshift(ring));
-%  figure('Name', 'ring'); imagesc(log(abs(ring)+1));  axis off;
+  %figure('Name', 'ring'); imagesc(log(abs(ring)+1));  axis off;
 
 % % convolution gradiant 
 % fx = [-1 0 1; -2 0 2; -1 0 1];
