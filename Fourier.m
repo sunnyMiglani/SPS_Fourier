@@ -12,17 +12,17 @@ S1_Mag = abs(fts1);
 T1_Mag = abs(ftt1);
 
 
-%Extract a box region.
-box = Extract_Box_Original_Size(ftv1, 100, 300, 200, 500);
-box_power = Sum_Power(abs(box));
-inverse_box = ifft2(ifftshift(box));
-%figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
+% Extract a box region.
+% box = Extract_Box_Original_Size(ftv1, 100, 300, 200, 500);
+% box_power = Sum_Power(abs(box));
+% inverse_box = ifft2(ifftshift(box));
+% figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
 
 
 %Extract a ring region.
-sector = Extract_sector(ftv1, 250, 75, 10, 40);  %angles push anticlockwise
-sector_power = Sum_Power(abs(sector));
-figure('Name', 'sector'); imagesc(log(abs(sector)+1)); axis off; 
+%sector = Extract_sector(ftv1, 250, 75, 10, 40);  %angles push anticlockwise
+%sector_power = Sum_Power(abs(sector));
+%figure('Name', 'sector'); imagesc(log(abs(sector)+1)); axis off; 
 
 
 %  %extract a ring region
@@ -58,14 +58,14 @@ Cluster_S = mean(S,1); Cluster_V = mean(V,1); Cluster_T = mean(T,1);
 %out spectral features.
 meanArray = [Cluster_S; Cluster_V; Cluster_T];
 hold on;
-scatter( S(:,1), S(:, 2), 'filled', 'ro');
-scatter( V(:,1), V(:, 2), 'filled', 'go');
-scatter( T(:,1), T(:, 2), 'filled', 'bo');
+scatter3( S(:,1), S(:, 2), S(:, 3),'filled', 'ro');
+scatter3( V(:,1), V(:, 2), V(:, 3),'filled', 'go');
+scatter3( T(:,1), T(:, 2), T(:, 3),'filled', 'bo');
 
-plot(Cluster_S(:,1),Cluster_S(:,2), 'rd', 'MarkerSize', 7);
-plot(Cluster_V(:,1),Cluster_V(:,2), 'gd', 'MarkerSize', 7);
-plot(Cluster_T(:,1),Cluster_T(:,2), 'bd', 'MarkerSize', 7);
-voronoi(meanArray(:,1), meanArray(:,2));
+%plot(Cluster_S(:,1),Cluster_S(:,2), 'rd', 'MarkerSize', 7);
+%plot(Cluster_V(:,1),Cluster_V(:,2), 'gd', 'MarkerSize', 7);
+%plot(Cluster_T(:,1),Cluster_T(:,2), 'bd', 'MarkerSize', 7);
+%voronoi(meanArray(:,1), meanArray(:,2));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% - KNN Classifier - %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
