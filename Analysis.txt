@@ -26,5 +26,6 @@ horizontal line, so taking this as a feature distinguishes V from T
 
 
 Fourier space -  what we did.
-
+ring doesnt seem that good now, both V and T have similar values, this makes sense as it capures all four of thier lines
+T and S also appear to have similar box valuues
 
