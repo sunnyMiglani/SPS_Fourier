@@ -1,10 +1,12 @@
-function spectral_feature = Extract_sector( spectral_region, radius, theta1, theta2 )
+function spectral_feature = Extract_sector( spectral_region, radius, theta1, theta2)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
 
-    [len,width] = size(spectral_region);
-    spectral_feature = complex(double(zeros(h,w)));
+    [y,x] = size(spectral_region);
+    spectral_feature = complex(double(zeros(y,x)));
+    midy = y/2;
+    midx = x/2;
     
     
     % Formula's 
@@ -16,9 +18,9 @@ function spectral_feature = Extract_sector( spectral_region, radius, theta1, the
     % theta1 is taken as the angle away from the point x,y where x,y is the
     % origin
     
-    for u = 1:len
-        for v = 1:width
-          pSq = sqrt(u*u + v*v);
+    for u = 1:x
+        for v = 1:y
+          pSq = sqrt( (midx - u)^2 + (midy - v)^2 );
           if(pSq > radius) % to see if the values are in the sector length
               continue;
           end

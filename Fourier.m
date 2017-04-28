@@ -12,11 +12,15 @@ S1_Mag = abs(fts1);
 T1_Mag = abs(ftt1);
 
 
-%Extrac a box region.
-box = Extract_Box_Original_Size(ftt1, 100, 300, 200, 500);
+%Extract a box region.
+box = Extract_Box_Original_Size(ftv1, 100, 300, 200, 500);
 box_power = Sum_Power(abs(box));
 inverse_box = ifft2(ifftshift(box));
 %figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
+
+
+
+
 
 %  %extract a ring region
 %ring = Extract_Ring(fts1, 150 , 75);
