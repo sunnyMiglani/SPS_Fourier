@@ -1,4 +1,4 @@
-function spectral_feature = Extract_sector( spectral_region, radius, theta1, theta2)
+function spectral_feature = Extract_sector( spectral_region, outer_radius, inner_radius, theta1, theta2)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -23,7 +23,7 @@ function spectral_feature = Extract_sector( spectral_region, radius, theta1, the
     for u = 1:x
         for v = 1:y
           pSq = sqrt( (midx - u)^2 + (midy - v)^2 );
-          if(pSq <= radius) % to see if the values are in the sector length
+          if(pSq <= outer_radius && pSq >= inner_radius ) % to see if the values are in the sector length
             tanVal = atan2(midy - v,midx - u); % This gives radians.
             if(tanVal >= theta1Rad && tanVal <= theta2Rad) 
                    spectral_feature(v,u) = spectral_region(v,u);

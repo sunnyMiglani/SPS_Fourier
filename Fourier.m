@@ -1,6 +1,6 @@
 
 %#just change the file path to load the image.
-v1 = imread('characters/Vs/V2.GIF'); s1 = imread('characters/Ss/S2.GIF'); t1 = imread('characters/Ts/T1.GIF'); %reading in the images 
+v1 = imread('characters/Vs/V4.GIF'); s1 = imread('characters/Ss/S2.GIF'); t1 = imread('characters/Ts/T1.GIF'); %reading in the images 
 
 ftv1 = fftshift( fft2(double(v1)) ); fts1 = fftshift( fft2(double(s1)) ); ftt1 = fftshift( fft2(double(t1)) ); %applying fourier transform and fourier shift
 
@@ -20,7 +20,7 @@ inverse_box = ifft2(ifftshift(box));
 
 
 %Extract a ring region.
-sector = Extract_sector(ftv1, 100, 0, 95);  
+sector = Extract_sector(ftv1, 250, 75, 10, 40);  %angles push anticlockwise
 sector_power = Sum_Power(abs(sector));
 figure('Name', 'sector'); imagesc(log(abs(sector)+1)); axis off; 
 
