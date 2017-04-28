@@ -2,6 +2,8 @@ function spectral_feature = Extract_sector( spectral_region, radius, theta1, the
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
+    theta1Rad = deg2rad(theta1-180) %converted to radians
+    theta2Rad = deg2rad(theta2-180)
 
     [y,x] = size(spectral_region);
     spectral_feature = complex(double(zeros(y,x)));
@@ -21,16 +23,13 @@ function spectral_feature = Extract_sector( spectral_region, radius, theta1, the
     for u = 1:x
         for v = 1:y
           pSq = sqrt( (midx - u)^2 + (midy - v)^2 );
-          if(pSq > radius) % to see if the values are in the sector length
-              continue;
-          end
-          tanVal = atan(v/u);
-          if(tanVal >= theta1)
-              if(tanVal <= theta2) 
-                  spectral_feature(u,v) = spectral_region(u,v);
-                  % If the feature is part of the tan arc then it's part of
-                  % the feature being extracted.
-              end
+          if(pSq <= radius) % to see if the values are in the sector length
+            tanVal = atan2(midy - v,midx - u); % This gives radians.
+            if(tanVal >= theta1Rad && tanVal <= theta2Rad) 
+                   spectral_feature(v,u) = spectral_region(v,u);
+                   % If the feature is part of the tan arc then it's part of
+                   % the feature being extracted.
+            end
           end
         end
     end

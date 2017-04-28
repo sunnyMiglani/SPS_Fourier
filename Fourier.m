@@ -19,7 +19,10 @@ inverse_box = ifft2(ifftshift(box));
 %figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
 
 
-
+%Extract a ring region.
+sector = Extract_sector(ftv1, 100, 0, 95);  
+sector_power = Sum_Power(abs(sector));
+figure('Name', 'sector'); imagesc(log(abs(sector)+1)); axis off; 
 
 
 %  %extract a ring region
