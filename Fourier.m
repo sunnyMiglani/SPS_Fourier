@@ -17,7 +17,7 @@ ring_Outer = 75; ring_Inner = 0;
 %%Top Box Assumptions
 BT_u0 = 1; BT_u1 = 400; BT_v0 = 300; BT_v1 = 340; 
 %%Right Box Assumptios
-BR_u0 = 160; BR_u1 = 240; BR_v0 = 450; BR_v1 = 580; 
+BR_u0 = 190; BR_u1 = 210; BR_v0 = 0; BR_v1 = 200; 
 %%Sector Assumptions (L)
 thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 125;
 %(R)
@@ -25,11 +25,11 @@ thetaR_1 = 30; thetaR_2 = 70; radR_in = 0; radR_out = 125;
 
 
 %Extract a box region.
- box = Extract_Box_Original_Size((abs(ftt1)), BT_u0, BT_u1, BT_v0, BT_v1);
+ box = Extract_Box_Original_Size((abs(fts1)), BT_u0, BT_u1, BT_v0, BT_v1);
  figure('Name', 's7'); imagesc(log((abs(fts1)+1)));
  power_boxOne = Sum_Power(box);
  figure('Name', 'boxOne'); imagesc(log((box)+1)); 
- box = Extract_Box_Original_Size((abs(ftt1)), BR_u0, BR_u1, BR_v0, BR_v1);
+ box = Extract_Box_Original_Size((abs(fts1)), BR_u0, BR_u1, BR_v0, BR_v1);
  power_boxOne = Sum_Power(box) + power_boxOne;
  figure('Name', 'boxTwo'); imagesc(log((box)+1)); 
  

@@ -9,7 +9,7 @@ ring_Outer = 40; ring_Inner = 0;
 %%Top Box Assumptions
 BT_u0 = 1; BT_u1 = 400; BT_v0 = 300; BT_v1 = 340;
 %%Right Box Assumptios
-BR_u0 = 160; BR_u1 = 240; BR_v0 = 450; BR_v1 = 580; 
+BR_u0 = 190; BR_u1 = 210; BR_v0 = 1; BR_v1 = 200; 
 %%Sector Assumptions (L)
 thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 125;
 %(R)
@@ -24,7 +24,7 @@ for i = 1 : numel(testFiles)
     Ring = Sum_Power(Extract_Ring(FFTM, ring_Outer, ring_Inner));
     SectorL = Sum_Power(Extract_sector(FFTM, radL_out, radL_in, thetaL_1, thetaL_2));
     SectorR = Sum_Power(Extract_sector(FFTM, radR_out, radR_in, thetaR_1, thetaR_2));
-    Test_Data(i,1) = Box_Top;                                           
+    Test_Data(i,1) = Box_Top + Box_R;                                           
     Test_Data(i,2) = SectorL+SectorR;
 end
 
