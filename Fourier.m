@@ -17,11 +17,11 @@ ring_Outer = 75; ring_Inner = 0;
 %%Top Box Assumptions
 BT_u0 = 1; BT_u1 = 400; BT_v0 = 300; BT_v1 = 340; 
 %%Right Box Assumptios
-BR_u0 = 190; BR_u1 = 210; BR_v0 = 0; BR_v1 = 200; 
+BR_u0 = 190; BR_u1 = 210; BR_v0 = 0; BR_v1 = 640; 
 %%Sector Assumptions (L)
-thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 125;
+thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 135;
 %(R)
-thetaR_1 = 30; thetaR_2 = 70; radR_in = 0; radR_out = 125;
+thetaR_1 = 30; thetaR_2 = 70; radR_in = 0; radR_out = 135;
 
 
 %Extract a box region.
@@ -37,8 +37,8 @@ thetaR_1 = 30; thetaR_2 = 70; radR_in = 0; radR_out = 125;
 
 
 %Extract a Sector region.
-sector1 = Extract_sector((abs(ftv1)), radL_out, radL_in, thetaL_1, thetaL_2);  %theta 1 push anticlockwise
-sector2 = Extract_sector((abs(ftv1)), radR_out, radR_in, thetaR_1, thetaR_2);  %theta 1 push anticlockwise
+sector1 = Extract_sector((abs(ftt1)), radL_out, radL_in, thetaL_1, thetaL_2);  %theta 1 push anticlockwise
+sector2 = Extract_sector((abs(ftt1)), radR_out, radR_in, thetaR_1, thetaR_2);  %theta 1 push anticlockwise
 sector_power = Sum_Power((sector1)) + Sum_Power((sector2));
 figure('Name', 'sectorOne'); imagesc(log((sector1)+1));
 figure('Name', 'sectorTwo'); imagesc(log((sector2)+1));
