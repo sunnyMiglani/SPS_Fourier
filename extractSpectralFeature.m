@@ -10,13 +10,13 @@ T_Path = 'characters/Ts/';
 %Ring Assumptions
 ring_Outer = 40; ring_Inner = 0;
 %%Top Box Assumptions
-BT_u0 = 10; BT_u1 = 120; BT_v0 = 300; BT_v1 = 340;
+BT_u0 = 1; BT_u1 = 400; BT_v0 = 300; BT_v1 = 340;
 %%Right Box Assumptios
 BR_u0 = 260; BR_u1 = 400; BR_v0 = 250; BR_v1 = 350; 
 %%Sector Assumptions (L)
-thetaL_1 = 10; thetaL_2 =30; radL_in = 200; radL_out = 310;
+thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 125;
 %(R)
-thetaR_1 = 140; thetaR_2 = 160; radR_in = 150; radR_out = 310;
+thetaR_1 = 30; thetaR_2 = 70; radR_in = 0; radR_out = 125;
 
 
     function [ X ] = get_Feature( direct, path )
@@ -29,7 +29,7 @@ thetaR_1 = 140; thetaR_2 = 160; radR_in = 150; radR_out = 310;
             SectorL = Sum_Power(Extract_sector(FFTM, radL_out, radL_in, thetaL_1, thetaL_2));
             SectorR = Sum_Power(Extract_sector(FFTM, radR_out, radR_in, thetaR_1, thetaR_2));
             X(i,1) = Box_Top;                                             %Store the extracted features in a row vector
-            X(i,2) = SectorR
+            X(i,2) = SectorL+SectorR;
         end
     end
 
