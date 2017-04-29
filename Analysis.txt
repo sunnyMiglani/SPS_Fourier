@@ -29,3 +29,8 @@ Fourier space -  what we did.
 ring doesnt seem that good now, both V and T have similar values, this makes sense as it capures all four of thier lines
 T and S also appear to have similar box valuues
 
+again sector does not help us very much with S. Everything points at using a box for S as it seems it has more frequency than appear (high frequencies)
+
+
+Test data is always alot larger than the training data, causing NN to classify with most spread class all the time (S)
+

@@ -2,8 +2,8 @@ function spectral_feature = Extract_sector( spectral_region, outer_radius, inner
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-    theta1Rad = deg2rad(theta1-180); %converted to radians
-    theta2Rad = deg2rad(theta2-180);
+    theta1Rad = deg2rad(theta1); %converted to radians
+    theta2Rad = deg2rad(theta2);
 
     [y,x] = size(spectral_region);
     spectral_feature = complex(double(zeros(y,x)));

@@ -1,6 +1,6 @@
 
 %#just change the file path to load the image.
-v1 = imread('characters/Vs/V4.GIF'); s1 = imread('characters/Ss/S2.GIF'); t1 = imread('characters/Ts/T3.GIF'); %reading in the images 
+v1 = imread('characters/Vs/V7.GIF'); s1 = imread('characters/Ss/S7.GIF'); t1 = imread('characters/Ts/T4.GIF'); %reading in the images 
 
 ftv1 = fftshift( fft2(double(v1)) ); fts1 = fftshift( fft2(double(s1)) ); ftt1 = fftshift( fft2(double(t1)) ); %applying fourier transform and fourier shift
 
@@ -13,16 +13,19 @@ T1_Mag = abs(ftt1);
 
 
 % Extract a box region.
-% box = Extract_Box_Original_Size(ftv1, 100, 300, 200, 500);
-% box_power = Sum_Power(abs(box));
+ box = Extract_Box_Original_Size(log(abs(ftt1)+1), 180, 220, 395, 640);
+ boxpower = Sum_Power((box));
 % inverse_box = ifft2(ifftshift(box));
-% figure('Name', 'box'); imshow(real(inverse_box));  axis off; 
+%figure('Name', 'box'); imagesc(box); axis off; 
+
 
 
 %Extract a ring region.
-sector = Extract_sector(ftt1, 250, 75, 10, 40);  %angles push anticlockwise
-sector_power = Sum_Power(abs(sector));
-%figure('Name', 'sector'); imagesc(log(abs(sector)+1)); axis off; 
+sector1 = Extract_sector(log(abs(fts1)+1), 310, 150, 10, 30);  %theta 1 push anticlockwise
+sector2 = Extract_sector(log(abs(fts1)+1), 310, 150, 150, 170);  %theta 1 push anticlockwise
+sector_power = Sum_Power((sector1)) + Sum_Power((sector2));
+%figure('Name', 'sector'); imagesc(log(abs(sector1)+1)); axis off; 
+%figure('Name', 'sector'); imagesc(log(abs(sector2)+1)); axis off; 
 
 
 %  %extract a ring region
@@ -59,13 +62,18 @@ Cluster_S = mean(S,1); Cluster_V = mean(V,1); Cluster_T = mean(T,1);
 meanArray = [Cluster_S; Cluster_V; Cluster_T];
 hold on;
 scatter3( S(:,1), S(:, 2), S(:, 3),'filled', 'ro');
-scatter3( V(:,1), V(:, 2), V(:, 3),'filled', 'go');
-scatter3( T(:,1), T(:, 2), T(:, 3),'filled', 'bo');
+ scatter3( V(:,1), V(:, 2), V(:, 3),'filled', 'go');
+ scatter3( T(:,1), T(:, 2), T(:, 3),'filled', 'bo');
 
-%plot(Cluster_S(:,1),Cluster_S(:,2), 'rd', 'MarkerSize', 7);
-%plot(Cluster_V(:,1),Cluster_V(:,2), 'gd', 'MarkerSize', 7);
-%plot(Cluster_T(:,1),Cluster_T(:,2), 'bd', 'MarkerSize', 7);
-%voronoi(meanArray(:,1), meanArray(:,2));
+
+%  scatter( S(:,1), S(:, 2),'filled', 'ro');
+%  scatter( V(:,1), V(:, 2), 'filled', 'go');
+%  scatter( T(:,1), T(:, 2),'filled', 'bo');
+
+% plot(Cluster_S(:,1),Cluster_S(:,2), 'rd', 'MarkerSize', 7);
+% plot(Cluster_V(:,1),Cluster_V(:,2), 'gd', 'MarkerSize', 7);
+% plot(Cluster_T(:,1),Cluster_T(:,2), 'bd', 'MarkerSize', 7);
+% voronoi(meanArray(:,1), meanArray(:,2));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% - KNN Classifier - %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -74,9 +82,14 @@ scatter3( T(:,1), T(:, 2), T(:, 3),'filled', 'bo');
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 5, 'Standardize', 1);
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 10, 'Standardize', 1);
+
 
 [labels,Test_Data] = test_knn(MdL);
+
+
+%scatter3( Test_Data(6,1), Test_Data(6, 2), Test_Data(6, 3),'filled', 'bd');
+
 
 ClusterSIndices = find(labels == 'S'); ClusterTIndices = find(labels == 'T'); ClusterVIndices = find(labels == 'V');
 
