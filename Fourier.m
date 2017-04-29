@@ -90,7 +90,7 @@ zlabel('Ring Values');
 % plot(Cluster_V(:,1),Cluster_V(:,2), 'gd', 'MarkerSize', 7);
 % plot(Cluster_T(:,1),Cluster_T(:,2), 'bd', 'MarkerSize', 7);
 
-voronoi(meanArray(:,1), meanArray(:,2));
+%voronoi(meanArray(:,1), meanArray(:,2));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% - KNN Classifier - %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -99,7 +99,7 @@ voronoi(meanArray(:,1), meanArray(:,2));
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 10, 'Standardize', 1);
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 3, 'Standardize', 1);
 
 
 [labels,Test_Data] = test_knn(MdL);
