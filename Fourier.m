@@ -19,9 +19,9 @@ BT_u0 = 1; BT_u1 = 400; BT_v0 = 300; BT_v1 = 340;
 %%Right Box Assumptios
 BR_u0 = 190; BR_u1 = 210; BR_v0 = 0; BR_v1 = 640; 
 %%Sector Assumptions (L)
-thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 135;
+thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 200;
 %(R)
-thetaR_1 = 30; thetaR_2 = 70; radR_in = 0; radR_out = 135;
+thetaR_1 = 20; thetaR_2 = 60; radR_in = 0; radR_out = 200;
 
 
 %Extract a box region.
@@ -94,7 +94,7 @@ ylabel('Box Values');
 % plot(Cluster_V(:,1),Cluster_V(:,2), 'gd', 'MarkerSize', 7);
 % plot(Cluster_T(:,1),Cluster_T(:,2), 'bd', 'MarkerSize', 7);
 
-voronoi(meanArray(:,1), meanArray(:,2));
+%voronoi(meanArray(:,1), meanArray(:,2));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% - KNN Classifier - %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -103,7 +103,7 @@ voronoi(meanArray(:,1), meanArray(:,2));
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 4)% 'Standardize', 1);
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 5, 'Standardize',1);%, 1, 'Distance', 'cityblock');
 
 
 [labels,Test_Data] = test_knn(MdL);
@@ -122,6 +122,29 @@ scatter( ClusterS(:,1), ClusterS(:, 2),'rd');
 scatter( ClusterV(:,1), ClusterV(:, 2),'gd');
 scatter( ClusterT(:,1), ClusterT(:, 2),'bd');
 
+%Attempt at decision boundary
+YY = (0.5e4: 0.01e4: 4.5e4)
+XX = (0.5e5: 0.01e5: 3.5e5)
+[X,Y] = meshgrid(XX,YY)
+BP = [X Y];
+BP_2dim = reshape(BP, [], 2);
+
+labelsgrd = predict(MdL, BP_2dim);
+
+gridSIndices = find(cell2mat(labelsgrd) == 'S'); gridTIndices = find(cell2mat(labelsgrd) == 'T'); gridVIndices = find(cell2mat(labelsgrd) == 'V');
+
+Cs = [BP_2dim(gridSIndices, 1), BP_2dim(gridSIndices, 2)]; %The features that have been classified as S
+CT = [BP_2dim(gridTIndices, 1), BP_2dim(gridTIndices, 2)];
+CV = [BP_2dim(gridVIndices, 1), BP_2dim(gridVIndices, 2) ];
+
+%FF = reshape(BP, [], 2)
+%scatter( BP_2dim(:,1), BP_2dim(:, 2),'r') %---contains all the correct points
+
+scatter( Cs(:,1), Cs(:, 2),'filled','r');
+scatter( CV(:,1), CV(:, 2),'filled','g');
+scatter( CT(:,1), CT(:, 2),'filled','b');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%Figures for each letter, uncomment to show%%%
 %figure('Name','Fourier space of V not reduced');

@@ -14,9 +14,9 @@ BT_u0 = 1; BT_u1 = 190; BT_v0 = 315; BT_v1 = 325;
 %%Right Box Assumptios
 BR_u0 = 195; BR_u1 = 205; BR_v0 = 1; BR_v1 = 640; 
 %%Sector Assumptions (L)
-thetaL_1 = 125; thetaL_2 =155; radL_in = 0; radL_out = 150;
+thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 200;
 %(R)
-thetaR_1 = 35; thetaR_2 = 65; radR_in = 0; radR_out = 150;
+thetaR_1 = 20; thetaR_2 = 60; radR_in = 0; radR_out = 200;
 
 
     function [ X ] = get_Feature( direct, path )
@@ -28,8 +28,8 @@ thetaR_1 = 35; thetaR_2 = 65; radR_in = 0; radR_out = 150;
             Ring = Sum_Power(Extract_Ring(FFTM, ring_Outer, ring_Inner));
             SectorL = Sum_Power(Extract_sector(FFTM, radL_out, radL_in, thetaL_1, thetaL_2));
             SectorR = Sum_Power(Extract_sector(FFTM, radR_out, radR_in, thetaR_1, thetaR_2));
-            X(i,1) = Box_Top;                                             %Store the extracted features in a row vector
-            X(i,2) = SectorL+SectorR;
+            X(i,1) = SectorL + SectorR;                                          %Store the extracted features in a row vector
+            X(i,2) = Box_Top; 
         end
     end
 
