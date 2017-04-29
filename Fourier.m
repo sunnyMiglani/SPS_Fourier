@@ -62,8 +62,24 @@ Cluster_S = mean(S,1); Cluster_V = mean(V,1); Cluster_T = mean(T,1);
 meanArray = [Cluster_S; Cluster_V; Cluster_T];
 hold on;
 scatter3( S(:,1), S(:, 2), S(:, 3),'filled', 'ro');
- scatter3( V(:,1), V(:, 2), V(:, 3),'filled', 'go');
- scatter3( T(:,1), T(:, 2), T(:, 3),'filled', 'bo');
+scatter3( V(:,1), V(:, 2), V(:, 3),'filled', 'go');
+scatter3( T(:,1), T(:, 2), T(:, 3),'filled', 'bo');
+title('3D Scatter of Features');
+xlabel('Sector Values');
+ylabel('Box Values');
+zlabel('Ring Values');
+
+% Comparison of various pairs of features
+
+% Ring vs Sector Values --> Clusters are not great. They're quite close
+% together and it can easily cause problems during classification
+
+% Sector vs Box Values --> Clusters are much better, very little
+% interaction between the points. Good decision boundary with veronoi
+
+% Ring vs Box Values --> Not as great clusters as Sector V Box. But Still
+% better than Ring V Sector. Would prefer Sector vs Box Values
+
 
 
 %  scatter( S(:,1), S(:, 2),'filled', 'ro');
@@ -73,7 +89,8 @@ scatter3( S(:,1), S(:, 2), S(:, 3),'filled', 'ro');
 % plot(Cluster_S(:,1),Cluster_S(:,2), 'rd', 'MarkerSize', 7);
 % plot(Cluster_V(:,1),Cluster_V(:,2), 'gd', 'MarkerSize', 7);
 % plot(Cluster_T(:,1),Cluster_T(:,2), 'bd', 'MarkerSize', 7);
-% voronoi(meanArray(:,1), meanArray(:,2));
+
+voronoi(meanArray(:,1), meanArray(:,2));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% - KNN Classifier - %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -96,15 +113,6 @@ ClusterSIndices = find(labels == 'S'); ClusterTIndices = find(labels == 'T'); Cl
 ClusterS = [Test_Data(ClusterSIndices, 1), Test_Data(ClusterSIndices,2)]; %The features that have been classified as S
 ClusterT = [Test_Data(ClusterTIndices, 1), Test_Data(ClusterTIndices,2)];
 ClusterV = [Test_Data(ClusterVIndices, 1), Test_Data(ClusterVIndices,2)];
-
-
-
-
-
-
-
-
-
 
 
 

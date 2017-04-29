@@ -24,13 +24,20 @@ thetaR_1 = 150; thetaR_2 = 170; radR_in = 150; radR_out = 310;
             Box_Top = Sum_Power( Extract_Box(FFTM, BT_u0, BT_u1, BT_v0, BT_v1));       %Extract a "Box" spectral feature
             Box_R = Sum_Power(Extract_Box(FFTM, BR_u0, BR_u1, BR_v0, BR_v1));                               
             Ring = Sum_Power(Extract_Ring(FFTM, ring_Outer, ring_Inner));
-            Sectorl = Sum_Power(Extract_sector(FFTM, radL_out, radL_in, thetaL_1, thetaL_2));
-            Sectorr = Sum_Power(Extract_sector(FFTM, radR_out, radR_in, thetaR_1, thetaR_2));
-            X(i,1) = Sectorl+ Sectorr;                                               %Store the extracted features in a row vector
+            SectorL = Sum_Power(Extract_sector(FFTM, radL_out, radL_in, thetaL_1, thetaL_2));
+            SectorR = Sum_Power(Extract_sector(FFTM, radR_out, radR_in, thetaR_1, thetaR_2));
+            X(i,1) = SectorL+ SectorR;                                               %Store the extracted features in a row vector
             X(i,2) = Box_Top + Box_R;
             X(i,3) = Ring;
         end
     end
+
+
+    % Features being checked -> Box_Top, Box_Right, Ring, SectorL, SectorR (total = 5)
+    % The feature values are stored in a (N x 3) array, with sectors stored
+    % in (N,1). Boxes stored in (N,2) and Ring stored in (N,3).
+    
+    
 
 
 %%Extract features for all training data
