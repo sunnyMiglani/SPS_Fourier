@@ -6,16 +6,19 @@ V_Path = 'characters/Vs/';
 T_files = dir('characters/Ts/*.GIF');
 T_Path = 'characters/Ts/';
 
+
 %Ring Assumptions
-ring_Outer = 150; ring_Inner = 120;
+ring_Outer = 40; ring_Inner = 0;
 %%Top Box Assumptions
-BT_u0 = 30; BT_u1 = 150; BT_v0 = 280; BT_v1 = 360; 
+BT_u0 = 10; BT_u1 = 120; BT_v0 = 300; BT_v1 = 340;
 %%Right Box Assumptios
-BR_u0 = 160; BR_u1 = 240; BR_v0 = 450; BR_v1 = 580; 
+BR_u0 = 260; BR_u1 = 400; BR_v0 = 250; BR_v1 = 350; 
 %%Sector Assumptions (L)
-thetaL_1 = 10; thetaL_2 =30; radL_in = 150; radL_out = 310;
+thetaL_1 = 10; thetaL_2 =30; radL_in = 200; radL_out = 310;
 %(R)
-thetaR_1 = 150; thetaR_2 = 170; radR_in = 150; radR_out = 310;
+thetaR_1 = 140; thetaR_2 = 160; radR_in = 150; radR_out = 310;
+
+
     function [ X ] = get_Feature( direct, path )
         for i = 1 : numel(direct)
             Image = imread(strcat(path, direct(i).name));                              %Read the file name
@@ -25,9 +28,8 @@ thetaR_1 = 150; thetaR_2 = 170; radR_in = 150; radR_out = 310;
             Ring = Sum_Power(Extract_Ring(FFTM, ring_Outer, ring_Inner));
             SectorL = Sum_Power(Extract_sector(FFTM, radL_out, radL_in, thetaL_1, thetaL_2));
             SectorR = Sum_Power(Extract_sector(FFTM, radR_out, radR_in, thetaR_1, thetaR_2));
-            X(i,1) = SectorR;                                               %Store the extracted features in a row vector
-            X(i,2) = Box_Top;
-            X(i,3) = Ring;
+            X(i,1) = Box_Top;                                             %Store the extracted features in a row vector
+            X(i,2) = SectorR
         end
     end
 

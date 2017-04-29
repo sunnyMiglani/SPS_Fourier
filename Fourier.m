@@ -13,15 +13,15 @@ T1_Mag = abs(ftt1);
 
 
 %Ring Assumptions
-ring_Outer = 150; ring_Inner = 120;
+ring_Outer = 75; ring_Inner = 0;
 %%Top Box Assumptions
-BT_u0 = 30; BT_u1 = 150; BT_v0 = 280; BT_v1 = 360; 
+BT_u0 = 1; BT_u1 = 400; BT_v0 = 290; BT_v1 = 350; 
 %%Right Box Assumptios
 BR_u0 = 160; BR_u1 = 240; BR_v0 = 450; BR_v1 = 580; 
 %%Sector Assumptions (L)
-thetaL_1 = 10; thetaL_2 =30; radL_in = 150; radL_out = 310;
+thetaL_1 = 10; thetaL_2 =30; radL_in = 200; radL_out = 310;
 %(R)
-thetaR_1 = 150; thetaR_2 = 170; radR_in = 150; radR_out = 310;
+thetaR_1 = 150; thetaR_2 = 170; radR_in = 200; radR_out = 310;
 
 
 %Extract a box region.
@@ -66,12 +66,11 @@ Cluster_S = mean(S,1); Cluster_V = mean(V,1); Cluster_T = mean(T,1);
 meanArray = [Cluster_S; Cluster_V; Cluster_T];
 figure('Name','3D Scatter of Features');
 hold on;
-scatter3( S(:,1), S(:, 2), S(:, 3),'filled', 'ro');
-scatter3( V(:,1), V(:, 2), V(:, 3),'filled', 'go');
-scatter3( T(:,1), T(:, 2), T(:, 3),'filled', 'bo');
+scatter( S(:,1), S(:, 2),'filled', 'ro');
+scatter( V(:,1), V(:, 2),'filled', 'go');
+scatter( T(:,1), T(:, 2),'filled', 'bo');
 xlabel('Sector Values');
 ylabel('Box Values');
-zlabel('Ring Values');
 
 % Comparison of various pairs of features
 
@@ -114,13 +113,13 @@ labels_cells = cell2mat(labels);
 ClusterSIndices = find((labels_cells) == 'S'); ClusterTIndices = find(labels_cells == 'T'); ClusterVIndices = find(labels_cells == 'V');
 
 
-ClusterS = [Test_Data(ClusterSIndices, 1), Test_Data(ClusterSIndices,2), Test_Data(ClusterSIndices,3)]; %The features that have been classified as S
-ClusterT = [Test_Data(ClusterTIndices, 1), Test_Data(ClusterTIndices,2), Test_Data(ClusterTIndices,3)];
-ClusterV = [Test_Data(ClusterVIndices, 1), Test_Data(ClusterVIndices,2), Test_Data(ClusterVIndices,3)];
+ClusterS = [Test_Data(ClusterSIndices, 1), Test_Data(ClusterSIndices,2)]; %The features that have been classified as S
+ClusterT = [Test_Data(ClusterTIndices, 1), Test_Data(ClusterTIndices,2)];
+ClusterV = [Test_Data(ClusterVIndices, 1), Test_Data(ClusterVIndices,2)];
 
-scatter3( ClusterS(:,1), ClusterS(:, 2), ClusterS(:, 3), 'rd');
-scatter3( ClusterV(:,1), ClusterV(:, 2), ClusterV(:, 3), 'gd');
-scatter3( ClusterT(:,1), ClusterT(:, 2), ClusterT(:, 3), 'bd');
+scatter( ClusterS(:,1), ClusterS(:, 2),'rd');
+scatter( ClusterV(:,1), ClusterV(:, 2),'gd');
+scatter( ClusterT(:,1), ClusterT(:, 2),'bd');
 
 
 %%%Figures for each letter, uncomment to show%%%

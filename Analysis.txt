@@ -34,3 +34,11 @@ again sector does not help us very much with S. Everything points at using a box
 
 Test data is always alot larger than the training data, causing NN to classify with most spread class all the time (S)
 
+==============================================
+Testing Diff
+
+> Having both the sectors (1 Box(T) and Ring) causes the S and V's to be confused
+
+
+
+===============================================
