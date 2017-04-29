@@ -13,10 +13,10 @@ T1_Mag = abs(ftt1);
 
 
 %Extract a box region.
- box = Extract_Box_Original_Size((abs(fts1)), 1, 140, 250, 350);
+ box = Extract_Box_Original_Size((abs(fts1)), 50, 150, 270, 370);
  power_boxOne = Sum_Power(box);
  figure('Name', 'boxOne'); imagesc(log((box)+1)); 
- box = Extract_Box_Original_Size((abs(fts1)), 260, 400, 250, 350);
+ box = Extract_Box_Original_Size((abs(fts1)), 150, 250, 450, 580);
  power_boxOne = Sum_Power(box) + power_boxOne;
  figure('Name', 'boxTwo'); imagesc(log((box)+1)); 
  
@@ -24,8 +24,8 @@ T1_Mag = abs(ftt1);
 
 
 %Extract a Sector region.
-sector1 = Extract_sector((abs(fts1)), 310, 150, 10, 30);  %theta 1 push anticlockwise
-sector2 = Extract_sector((abs(fts1)), 310, 150, 150, 170);  %theta 1 push anticlockwise
+sector1 = Extract_sector((abs(ftt1)), 310, 150, 10, 30);  %theta 1 push anticlockwise
+sector2 = Extract_sector((abs(ftt1)), 310, 150, 150, 170);  %theta 1 push anticlockwise
 sector_power = Sum_Power((sector1)) + Sum_Power((sector2));
 figure('Name', 'sectorOne'); imagesc(log((sector1)+1));
 figure('Name', 'sectorTwo'); imagesc(log((sector2)+1));

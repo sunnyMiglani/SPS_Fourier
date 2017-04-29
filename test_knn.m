@@ -4,11 +4,11 @@ testFiles = dir('TestData/*.GIF');
 Path = 'TestData/';
 
 %Ring Assumptions
-ring_Outer = 150; ring_Inner = 95;
+ring_Outer = 150; ring_Inner = 120;
 %%Top Box Assumptions
-BT_u0 = 1; BT_u1 = 140; BT_v0 = 250; BT_v1 = 350; 
+BT_u0 = 30; BT_u1 = 150; BT_v0 = 280; BT_v1 = 360; 
 %%Right Box Assumptios
-BR_u0 = 260; BR_u1 = 400; BR_v0 = 250; BR_v1 = 350; 
+BR_u0 = 160; BR_u1 = 240; BR_v0 = 450; BR_v1 = 580; 
 %%Sector Assumptions (L)
 thetaL_1 = 10; thetaL_2 =30; radL_in = 150; radL_out = 310;
 %(R)
@@ -22,8 +22,8 @@ for i = 1 : numel(testFiles)
     Ring = Sum_Power(Extract_Ring(FFTM, ring_Outer, ring_Inner));
     SectorL = Sum_Power(Extract_sector(FFTM, radL_out, radL_in, thetaL_1, thetaL_2));
     SectorR = Sum_Power(Extract_sector(FFTM, radR_out, radR_in, thetaR_1, thetaR_2));
-    Test_Data(i,1) = SectorL+ SectorR;                                                 
-    Test_Data(i,2) = Box_Top + Box_R;
+    Test_Data(i,1) = SectorR;                                             
+    Test_Data(i,2) = Box_Top;
     Test_Data(i,3) = Ring;
 end
 
