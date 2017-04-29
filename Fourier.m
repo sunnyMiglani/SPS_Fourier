@@ -91,21 +91,24 @@ zlabel('Ring Values');
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 3, 'Standardize', 1);
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 5, 'Standardize', 1);
 
 
 [labels,Test_Data] = test_knn(MdL);
 
 
-scatter3( Test_Data(:,1), Test_Data(:, 2), Test_Data(:, 3),'filled', 'bd');
+
+labels_cells = cell2mat(labels);
+ClusterSIndices = find((labels_cells) == 'S'); ClusterTIndices = find(labels_cells == 'T'); ClusterVIndices = find(labels_cells == 'V');
 
 
-ClusterSIndices = find(labels == 'S'); ClusterTIndices = find(labels == 'T'); ClusterVIndices = find(labels == 'V');
+ClusterS = [Test_Data(ClusterSIndices, 1), Test_Data(ClusterSIndices,2), Test_Data(ClusterSIndices,3)]; %The features that have been classified as S
+ClusterT = [Test_Data(ClusterTIndices, 1), Test_Data(ClusterTIndices,2), Test_Data(ClusterTIndices,3)];
+ClusterV = [Test_Data(ClusterVIndices, 1), Test_Data(ClusterVIndices,2), Test_Data(ClusterVIndices,3)];
 
-ClusterS = [Test_Data(ClusterSIndices, 1), Test_Data(ClusterSIndices,2)]; %The features that have been classified as S
-ClusterT = [Test_Data(ClusterTIndices, 1), Test_Data(ClusterTIndices,2)];
-ClusterV = [Test_Data(ClusterVIndices, 1), Test_Data(ClusterVIndices,2)];
-
+scatter3( ClusterS(:,1), ClusterS(:, 2), ClusterS(:, 3), 'rd');
+scatter3( ClusterV(:,1), ClusterV(:, 2), ClusterV(:, 3), 'gd');
+scatter3( ClusterT(:,1), ClusterT(:, 2), ClusterT(:, 3), 'bd');
 
 
 %%%Figures for each letter, uncomment to show%%%
