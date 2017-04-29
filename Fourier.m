@@ -12,11 +12,23 @@ S1_Mag = abs(fts1);
 T1_Mag = abs(ftt1);
 
 
+%Ring Assumptions
+ring_Outer = 150; ring_Inner = 120;
+%%Top Box Assumptions
+BT_u0 = 30; BT_u1 = 150; BT_v0 = 280; BT_v1 = 360; 
+%%Right Box Assumptios
+BR_u0 = 160; BR_u1 = 240; BR_v0 = 450; BR_v1 = 580; 
+%%Sector Assumptions (L)
+thetaL_1 = 10; thetaL_2 =30; radL_in = 150; radL_out = 310;
+%(R)
+thetaR_1 = 150; thetaR_2 = 170; radR_in = 150; radR_out = 310;
+
+
 %Extract a box region.
- box = Extract_Box_Original_Size((abs(fts1)), 50, 150, 270, 370);
+ box = Extract_Box_Original_Size((abs(fts1)), BT_u0, BT_u1, BT_v0, BT_v1);
  power_boxOne = Sum_Power(box);
  figure('Name', 'boxOne'); imagesc(log((box)+1)); 
- box = Extract_Box_Original_Size((abs(fts1)), 150, 250, 450, 580);
+ box = Extract_Box_Original_Size((abs(fts1)), BR_u0, BR_u1, BR_v0, BR_v1);
  power_boxOne = Sum_Power(box) + power_boxOne;
  figure('Name', 'boxTwo'); imagesc(log((box)+1)); 
  
@@ -24,15 +36,15 @@ T1_Mag = abs(ftt1);
 
 
 %Extract a Sector region.
-sector1 = Extract_sector((abs(ftt1)), 310, 150, 10, 30);  %theta 1 push anticlockwise
-sector2 = Extract_sector((abs(ftt1)), 310, 150, 150, 170);  %theta 1 push anticlockwise
+sector1 = Extract_sector((abs(ftt1)), radL_out, radL_in, thetaL_1, thetaL_2);  %theta 1 push anticlockwise
+sector2 = Extract_sector((abs(ftt1)), radR_out, radR_in, thetaR_1, thetaR_2);  %theta 1 push anticlockwise
 sector_power = Sum_Power((sector1)) + Sum_Power((sector2));
 figure('Name', 'sectorOne'); imagesc(log((sector1)+1));
 figure('Name', 'sectorTwo'); imagesc(log((sector2)+1));
 
 
 %Extract a ring region
-ring = Extract_Ring((abs(fts1)), 150 , 75);
+ring = Extract_Ring((abs(fts1)),ring_Outer, ring_Inner);
 ring_power = Sum_Power((ring));
 inverse_ring = ifft2(ifftshift(ring));
 figure('Name', 'ring'); imagesc(log((ring)+1));
