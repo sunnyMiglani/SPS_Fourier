@@ -16,7 +16,7 @@ thetaR_1 = 150; thetaR_2 = 170; radR_in = 150; radR_out = 310;
 
 for i = 1 : numel(testFiles)
     Image = imread(strcat(Path,testFiles(i).name));                        
-    FFTM  = abs(fftshift( fft2(double(Image)./255)));                            
+    FFTM  = log(abs(fftshift( fft2(double(Image)./255)))+1);                            
     Box_Top = Sum_Power( Extract_Box(FFTM, BT_u0, BT_u1, BT_v0, BT_v1));       %Extract a "Box" spectral feature
     Box_R = Sum_Power(Extract_Box(FFTM, BR_u0, BR_u1, BR_v0, BR_v1));                               
     Ring = Sum_Power(Extract_Ring(FFTM, ring_Outer, ring_Inner));
