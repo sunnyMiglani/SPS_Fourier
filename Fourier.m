@@ -72,6 +72,7 @@ scatter( V(:,1), V(:, 2),'filled', 'go');
 scatter( T(:,1), T(:, 2),'filled', 'bo');
 xlabel('Sector Values');
 ylabel('Box Values');
+legend('S', 'V', 'T');
 
 % Comparison of various pairs of features
 
@@ -123,9 +124,9 @@ scatter( ClusterV(:,1), ClusterV(:, 2),'gd');
 scatter( ClusterT(:,1), ClusterT(:, 2),'bd');
 
 %Attempt at decision boundary
-YY = (0.5e4: 0.01e4: 4.5e4)
-XX = (0.5e5: 0.01e5: 3.5e5)
-[X,Y] = meshgrid(XX,YY)
+YY = (0.5e4: 0.01e4: 4.5e4);
+XX = (0.5e5: 0.01e5: 3.5e5);
+[X,Y] = meshgrid(XX,YY);
 BP = [X Y];
 BP_2dim = reshape(BP, [], 2);
 
@@ -139,18 +140,63 @@ CV = [BP_2dim(gridVIndices, 1), BP_2dim(gridVIndices, 2) ];
 
 %FF = reshape(BP, [], 2)
 %scatter( BP_2dim(:,1), BP_2dim(:, 2),'r') %---contains all the correct points
-
+figure; hold on;
 scatter( Cs(:,1), Cs(:, 2),'filled','r');
 scatter( CV(:,1), CV(:, 2),'filled','g');
 scatter( CT(:,1), CT(:, 2),'filled','b');
+xlabel('Sector Values');
+ylabel('Box Values');
+legend('S', 'V', 'T');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%Maximum Likelihood%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%Figures for each letter, uncomment to show%%%
-%figure('Name','Fourier space of V not reduced');
-%imagesc(log(V1_Mag+1));
-%figure('Name','Fourier space of S not reduced');
-%imagesc(log(S1_Mag+1));
-%figure('Name','Fourier space of T not reduced');
-%imagesc(log(T1_Mag+1))
+%%Get mean for each class
+MU_S = mean(S,1); MU_V = mean(V,1); MU_T = mean(T,1);
+%%Get covariance for each class
+COV_S = cov(S); COV_V = cov(V); COV_T = cov(T); 
+
+x1 = xlim; y1 = ylim;
+xrange = linspace(x1(:,1), x1(:,2)); %100 points within the x axis (sector feature)
+yrange = linspace(y1(:,1), y1(:,2)); %100 points within the y axis (box feature)
+
+[gX, gY] = meshgrid(xrange, yrange);
+grdP = [gX gY];
+reshape(grdP, [], 2);
+
+%%Model each class as a guassian
+Like_S = mvnpdf([gX(:) gY(:)], MU_S, COV_S); % For S
+Like_V = mvnpdf([gX(:) gY(:)], MU_V, COV_V); % For V
+Like_T = mvnpdf([gX(:) gY(:)], MU_T, COV_T); % For T
+
+figure;
+hold on;
+surf(xrange, yrange, reshape(Like_S, length(xrange),length(yrange)))
+surf(xrange, yrange, reshape(Like_T, length(xrange),length(yrange)))
+surf(xrange, yrange, reshape(Like_V, length(xrange),length(yrange)))
+xlabel('Sector Values');
+ylabel('Box Values');
+
+
+figure;
+hold on
+
+ThreshS =  (1 / ( 2 * pi * sqrt( det( COV_S )))) * exp( -3 ); 
+ThreshV =  (1 / ( 2 * pi * sqrt( det( COV_V )))) * exp( -3 ); 
+ThreshT =  (1 / ( 2 * pi * sqrt( det( COV_T )))) * exp( -3 ); 
+
+%contour(xrange,yrange, reshape(Like_S, length(xrange),length(yrange)), [ThreshS ThreshS],'r' ); %%The maximum likelihood lines
+%contour(xrange,yrange, reshape(Like_V, length(xrange),length(yrange)), [ThreshS ThreshS],'g' )
+%contour(xrange,yrange, reshape(Like_T, length(xrange),length(yrange)), [ThreshS ThreshS],'b' )
+
+%calculate likelihood rations
+
+LH_SV = Like_S./Like_V
+LH_ST = Like_S./Like_T
+LH_VT = Like_V./Like_T
+
+%contour(xrange,yrange, reshape(LH_SV, length(xrange),length(yrange)),[1 1],'y' ); %%The maximum likelihood lines
+%contour(xrange,yrange, reshape(LH_ST, length(xrange),length(yrange)),[1 1],'g' )
+contour(xrange,yrange, reshape(LH_VT, length(xrange),length(yrange)),[1 1],'b' )
+
 
