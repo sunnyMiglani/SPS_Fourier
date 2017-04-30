@@ -1,4 +1,4 @@
-
+ink
 %#just change the file path to load the image.
 v1 = imread('characters/Vs/V7.GIF'); s1 = imread('characters/Ss/S7.GIF'); t1 = imread('characters/Ts/T4.GIF'); %reading in the images 
 
