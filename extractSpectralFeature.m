@@ -10,7 +10,7 @@ T_Path = 'characters/Ts/';
 %Ring Assumptions
 ring_Outer = 40; ring_Inner = 0;
 %%Top Box Assumptions
-BT_u0 = 1; BT_u1 = 190; BT_v0 = 315; BT_v1 = 325;
+BT_u0 = 1; BT_u1 = 400; BT_v0 = 315; BT_v1 = 325;
 %%Right Box Assumptios
 BR_u0 = 195; BR_u1 = 205; BR_v0 = 1; BR_v1 = 640; 
 %%Sector Assumptions (L)

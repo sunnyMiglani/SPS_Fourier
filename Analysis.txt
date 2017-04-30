@@ -39,6 +39,18 @@ Testing Diff
 
 > Having both the sectors (1 Box(T) and Ring) causes the S and V's to be confused
 
-
-
 ===============================================
+
+
+
+
+% Comparison of various pairs of features
+
+% Ring vs Sector Values --> Clusters are not great. They're quite close
+% together and it can easily cause problems during classification
+
+% Sector vs Box Values --> Clusters are much better, very little
+% interaction between the points. Good decision boundary with veronoi
+
+% Ring vs Box Values --> Not as great clusters as Sector V Box. But Still
+% better than Ring V Sector. Would prefer Sector vs Box Values
