@@ -9,15 +9,15 @@ V1_Mag = abs(ftv1); S1_Mag = abs(fts1); T1_Mag = abs(ftt1);
 %%%%%%%%%%%%%%%%Spectral feature paramaters for testing%%%%%%%%%%%%%%%%%%%%
 
 %Ring Assumptions
-ring_Outer = 75; ring_Inner = 0;
+ring_Outer = 40; ring_Inner = 0;
 %%Top Box Assumptions
-BT_u0 = 1; BT_u1 = 400; BT_v0 = 300; BT_v1 = 340; 
+BT_u0 = 1; BT_u1 = 100; BT_v0 = 315; BT_v1 = 325;
 %%Right Box Assumptios
-BR_u0 = 190; BR_u1 = 210; BR_v0 = 0; BR_v1 = 640; 
+BR_u0 = 195; BR_u1 = 205; BR_v0 = 1; BR_v1 = 220; 
 %%Sector Assumptions (L)
-thetaL_1 = 120; thetaL_2 =160; radL_in = 0; radL_out = 200;
+thetaL_1 = 135; thetaL_2 =180; radL_in = 30; radL_out = 200;
 %(R)
-thetaR_1 = 20; thetaR_2 = 60; radR_in = 0; radR_out = 200;
+thetaR_1 = 0; thetaR_2 = 45; radR_in = 30; radR_out = 200;
 
 %Extract a box region.
  box = Extract_Box_Original_Size((abs(fts1)), BT_u0, BT_u1, BT_v0, BT_v1);
@@ -25,12 +25,12 @@ thetaR_1 = 20; thetaR_2 = 60; radR_in = 0; radR_out = 200;
  power_boxOne = Sum_Power(box);
  figure('Name', 'boxOne'); imagesc(log((box)+1)); 
  box = Extract_Box_Original_Size((abs(fts1)), BR_u0, BR_u1, BR_v0, BR_v1);
- power_boxOne = Sum_Power(box) + power_boxOne;
+ power_boxtwo = Sum_Power(box);
  figure('Name', 'boxTwo'); imagesc(log((box)+1)); 
  
 %Extract a Sector region.
-sector1 = Extract_sector((abs(ftt1)), radL_out, radL_in, thetaL_1, thetaL_2);  %theta 1 push anticlockwise
-sector2 = Extract_sector((abs(ftt1)), radR_out, radR_in, thetaR_1, thetaR_2);  %theta 1 push anticlockwise
+sector1 = Extract_sector((abs(fts1)), radL_out, radL_in, thetaL_1, thetaL_2);  %theta 1 push anticlockwise
+sector2 = Extract_sector((abs(fts1)), radR_out, radR_in, thetaR_1, thetaR_2);  %theta 1 push anticlockwise
 sector_power = Sum_Power((sector1)) + Sum_Power((sector2));
 figure('Name', 'sectorOne'); imagesc(log((sector1)+1));
 figure('Name', 'sectorTwo'); imagesc(log((sector2)+1));
@@ -63,7 +63,7 @@ xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'V', 'T'); %Other plo
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 7, 'Standardize',1);%, 1, 'Distance', 'cityblock');
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors',5,  'Standardize',1);% 'Distance', 'cityblock');
 
 %Apply the classifier to Test Data
 [labels,Test_Data] = test_knn(MdL);
@@ -90,7 +90,7 @@ xscale = xlim; yscale = ylim; %Generate linearly spaceed vectors for each point 
 xrange = linspace(xscale(:,1), xscale(:,2)); %100 points within the x axis (sector feature)
 yrange = linspace(yscale(:,1), yscale(:,2)); %100 points within the y axis (box feature)
 
-[XGRID, YGRID] = meshgrid(xrange, yrange); Test_Grid = [XGRID YGRID] %Generate a meshgrid of testpoints
+[XGRID, YGRID] = meshgrid(xrange, yrange); Test_Grid = [XGRID YGRID]; %Generate a meshgrid of testpoints
 
 Test_Grid2 = reshape(Test_Grid, [],2);
 Grid_Labels = predict(MdL, Test_Grid2); %Classify the test points so the surface is filled.
@@ -182,7 +182,8 @@ scatter( Class_T(:,1), Class_T(:, 2),'b');
 contour(xrange,yrange, reshape(LH_VT, length(xrange),length(yrange)),[1 1],'cyan' )
 xlabel('Sector Values'); ylabel('Box Values'); legend('T', 'V'); %Other plot things
 
-
+NB = fitcnb(Training_Data,cell_labels); %Train and use a naive bayes classifier to explain the decision boundaries.
+bayesb = predict(NB, Test_Data);
 
 
 
