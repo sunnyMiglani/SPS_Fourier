@@ -71,7 +71,7 @@ xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'V', 'T'); %Other plo
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors',7,  'Standardize',1);%,'Distance', 'chebychev');
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors',7,  'Standardize',1,'Distance', 'mahalanobis');%, 'chebychev');
 
 %Apply the classifier to Test Data
 [labels,Test_Data] = test_knn(MdL);
@@ -186,7 +186,7 @@ scatter( Class_T(:,1), Class_T(:, 2),'b');
 contour(xrange,yrange, reshape(LH_VT, length(xrange),length(yrange)),[1 1],'cyan' )
 xlabel('Sector Values'); ylabel('Box Values'); legend('T', 'V'); %Other plot things
 
-NB = fitcnb(Training_Data,cell_labels, 'mvmn'); %Train and use a naive bayes classifier to explain the decision boundaries.
+NB = fitcnb(Training_Data,cell_labels); %Train and use a naive bayes classifier to explain the decision boundaries.
 bayesb = predict(NB, Test_Data);
 
 
