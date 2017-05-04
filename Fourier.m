@@ -71,7 +71,7 @@ xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'V', 'T'); %Other plo
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors',7,  'Standardize',1);%,,'Distance', 'mahalanobis' 'chebychev');
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors', 7 ,'Standardize',1,'Distance', 'cityblock');% 'chebychev');
 
 %Apply the classifier to Test Data
 [labels,Test_Data] = test_knn(MdL);
@@ -113,8 +113,8 @@ Class_V_Test = [Test_Grid2(gridVIndices, 1), Test_Grid2(gridVIndices, 2)]; %The 
 
 scatter( Class_S_Test(:,1), Class_S_Test(:, 2),'.','r');
 scatter( Class_V_Test(:,1), Class_V_Test(:, 2),'.','g');
-scatter( Class_T_Test(:,1), Class_T_Test(:, 2),'.','b');
-
+scatter( Class_T_Test(:,1), Class_T_Test(:, 2),'.','b');  %%HOW TO BOLD THIS PLS!
+legend('S', 'V', 'T', 'S-Test', 'V-Test', 'T-Test');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%Maximum Likelihood%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,8 +165,8 @@ scatter( S(:,1), S(:, 2),'filled', 'ro'); %Plot S features
 scatter( V(:,1), V(:, 2),'filled', 'go'); %Plot V features
 scatter( Class_S(:,1), Class_S(:, 2),'r');
 scatter( Class_V(:,1), Class_V(:, 2),'g');
-contour(xrange,yrange, reshape(LH_SV, length(xrange),length(yrange)),[1 1],'y' ); 
-xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'V'); %Other plot things
+contour(xrange,yrange, reshape(LH_SV, length(xrange),length(yrange)),[1 1],'c' ); 
+xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'V','S - KNN', 'V - KNN'); %Other plot things
 
 figure('Name','ML boundaries S/T');
 hold on;
@@ -175,7 +175,7 @@ scatter( T(:,1), T(:, 2),'filled', 'bo'); %Plot T features
 scatter( Class_T(:,1), Class_T(:, 2),'b');
 scatter( Class_S(:,1), Class_S(:, 2),'r');
 contour(xrange,yrange, reshape(LH_ST, length(xrange),length(yrange)),[1 1],'m' )
-xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'T'); %Other plot things
+xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'T','T - KNN', 'S - KNN'); %Other plot things
 
 figure('Name','ML boundaries T/V');
 hold on;
@@ -183,8 +183,8 @@ scatter( T(:,1), T(:, 2),'filled', 'bo'); %Plot T features
 scatter( V(:,1), V(:, 2),'filled', 'go'); %Plot V features
 scatter( Class_V(:,1), Class_V(:, 2),'g');
 scatter( Class_T(:,1), Class_T(:, 2),'b');
-contour(xrange,yrange, reshape(LH_VT, length(xrange),length(yrange)),[1 1],'cyan' )
-xlabel('Sector Values'); ylabel('Box Values'); legend('T', 'V'); %Other plot things
+contour(xrange,yrange, reshape(LH_VT, length(xrange),length(yrange)),[1 1],'y' )
+xlabel('Sector Values'); ylabel('Box Values'); legend('T', 'V', 'V - KNN', 'T - KNN'); %Other plot things
 
 NB = fitcnb(Training_Data,cell_labels); %Train and use a naive bayes classifier to explain the decision boundaries.
 bayesb = predict(NB, Test_Data);
@@ -203,7 +203,24 @@ Class_S_Test_b = [Test_Grid2(gridS_b, 1), Test_Grid2(gridS_b, 2)]; %The features
 Class_T_Test_b = [Test_Grid2(gridT_b, 1), Test_Grid2(gridT_b, 2)]; %The features that have been classified as T
 Class_V_Test_b = [Test_Grid2(gridV_b, 1), Test_Grid2(gridV_b, 2)]; %The features that have been classified as V
 
-scatter( Class_S_Test_b(:,1), Class_S_Test_b(:, 2),'.','r');
+
+
+
+scatter( S(:,1), S(:, 2),'filled', 'ro'); %Plot S features
+scatter( V(:,1), V(:, 2),'filled', 'go'); %Plot V features
+scatter( T(:,1), T(:, 2),'filled', 'bo'); %Plot T features
+
+scatter( Class_S(:,1), Class_S(:, 2),'r');
+scatter( Class_V(:,1), Class_V(:, 2),'g');
+scatter( Class_T(:,1), Class_T(:, 2),'b');
+
+scatter( Class_S_Test_b(:,1), Class_S_Test_b(:, 2),'.','r'); %% Boundaries
 scatter( Class_T_Test_b(:,1), Class_T_Test_b(:, 2),'.','b');
 scatter( Class_V_Test_b(:,1), Class_V_Test_b(:, 2),'.','g');
+
+
+xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'V', 'T','S - KNN', 'V - KNN', 'T - KNN' ); %Other plot things
+
+
+
 
