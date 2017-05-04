@@ -4,8 +4,6 @@ The most unique of the three, makes a "star" shape.
 Relying on high frequencies in S is probably our best bet, since S is
 alot curvier than the other letters we need to classify.
 
-
-
 Information about V
 --------------------
 much like "T" but rotated ~45'. the X made by V fans out more on the V's
@@ -25,3 +23,34 @@ S relies on the high frequencies and is considerably different from the other
 two so take high frequencies(ring) as the first feature. The T and V are similar
 in many ways, however they have a large difference when it comes to T's
 horizontal line, so taking this as a feature distinguishes V from T
+
+
+Fourier space -  what we did.
+ring doesnt seem that good now, both V and T have similar values, this makes sense as it capures all four of thier lines
+T and S also appear to have similar box valuues
+
+again sector does not help us very much with S. Everything points at using a box for S as it seems it has more frequency than appear (high frequencies)
+
+
+Test data is always alot larger than the training data, causing NN to classify with most spread class all the time (S)
+
+==============================================
+Testing Diff
+
+> Having both the sectors (1 Box(T) and Ring) causes the S and V's to be confused
+
+===============================================
+
+
+
+
+% Comparison of various pairs of features
+
+% Ring vs Sector Values --> Clusters are not great. They're quite close
+% together and it can easily cause problems during classification
+
+% Sector vs Box Values --> Clusters are much better, very little
+% interaction between the points. Good decision boundary with veronoi
+
+% Ring vs Box Values --> Not as great clusters as Sector V Box. But Still
+% better than Ring V Sector. Would prefer Sector vs Box Values

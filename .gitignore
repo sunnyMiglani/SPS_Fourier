@@ -6,7 +6,7 @@ __pycache__/
 # Matlab
 *.m~
 *.asv
-
+fouriertest.m
 
 # C extensions
 *.so
