@@ -54,3 +54,16 @@ Testing Diff
 
 % Ring vs Box Values --> Not as great clusters as Sector V Box. But Still
 % better than Ring V Sector. Would prefer Sector vs Box Values
+
+
+# Our attempts
+
+> Not ring : Everything was symmetrical and does not give us enough dinstinctness 
+> We avoid the DC component : there's no real infomation gained from it
+> Sectors for S : Empty sectors --> got too much of T and bits of V for angled
+
+
+# Why we chose what we did
+> Square on top ~~ Takes main core of T and it's quite distinct from other letters
+> Sectors on the sides covering V ~~ Far away from T, Takes main parts of V giving V's a higher value, and doesn't take too much noise from S. 
+
