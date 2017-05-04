@@ -13,11 +13,11 @@ ring_Outer = 40; ring_Inner = 0;
 %%Top Box Assumptions
 BT_u0 = 1; BT_u1 = 200; BT_v0 = 310; BT_v1 = 330;
 %%Right Box Assumptios
-BR_u0 = 195; BR_u1 = 205; BR_v0 = 1; BR_v1 = 640; 
+BR_u0 = 190; BR_u1 = 210; BR_v0 = 1; BR_v1 = 640; 
 %%Sector Assumptions (L)
-thetaL_1 = 145; thetaL_2 =175; radL_in = 30; radL_out = 270;
+thetaL_1 = 145; thetaL_2 =172.5; radL_in = 0; radL_out = 300;
 %(R)
-thetaR_1 = 5; thetaR_2 = 35; radR_in = 30; radR_out = 270;
+thetaR_1 = 7.5; thetaR_2 = 35; radR_in = 0; radR_out = 300;
 
 %Extract a box region.
  box = Extract_Box_Original_Size((abs(fts1)), BT_u0, BT_u1, BT_v0, BT_v1);
@@ -71,7 +71,7 @@ xlabel('Sector Values'); ylabel('Box Values'); legend('S', 'V', 'T'); %Other plo
 cell_labels = cellstr([repmat('S', 10,1); repmat('V', 10,1); repmat('T', 10,1)]);
 
 %Fit the KNN classifier
-MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors',7,  'Standardize',1,'Distance', 'mahalanobis');%, 'chebychev');
+MdL = fitcknn(Training_Data, cell_labels, 'NumNeighbors',7,  'Standardize',1);%,,'Distance', 'mahalanobis' 'chebychev');
 
 %Apply the classifier to Test Data
 [labels,Test_Data] = test_knn(MdL);

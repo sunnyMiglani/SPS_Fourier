@@ -14,7 +14,7 @@ BT_u0 = 1; BT_u1 = 200; BT_v0 = 310; BT_v1 = 330;
 %%Right Box Assumptios
 BR_u0 = 190; BR_u1 = 210; BR_v0 = 1; BR_v1 = 640; 
 %%Sector Assumptions (L)
-thetaL_1 = 145; thetaL_2 =172.5; radL_in = 0; radL_out = 3000;
+thetaL_1 = 145; thetaL_2 =172.5; radL_in = 0; radL_out = 300;
 %(R)
 thetaR_1 = 7.5; thetaR_2 = 35; radR_in = 0; radR_out = 300;
 
