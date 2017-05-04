@@ -46,8 +46,9 @@ figure('Name', 'ring'); imagesc(log((ring)+1));
 % Extract the features for all the training data
 [S, V, T] = extractSpectralFeature(); Training_Data = [S; V; T]; %Concat them in an array
 
-S = rS; V = rV; T= rT;
+
 rS = rescaleData(S); rT = rescaleData(T); rV = rescaleData(V);
+%S = rS; V = rV; T= rT;
 
 RD = [rS; rV; rT];
 Training_Data = rescaleData(Training_Data);
@@ -131,19 +132,18 @@ COV_S = cov(S); COV_V = cov(V); COV_T = cov(T);
 %grdP = [gX gY];
 %reshape(grdP, [], 2);
 
-%%Model each class as a guassian
+%%Model each class as a guassian %mvn = Multivariate Normal Pdf
 Like_S = mvnpdf([XGRID(:) YGRID(:)], MU_S, COV_S).*(1/3); % For S
 Like_V = mvnpdf([XGRID(:) YGRID(:)], MU_V, COV_V).*(1/3); % For V
 Like_T = mvnpdf([XGRID(:) YGRID(:)], MU_T, COV_T).*(1/3); % For T
 
 figure;
 hold on;
-surf(xrange, yrange, reshape(Like_S, length(xrange),length(yrange)))
+surf(xrange, yrange, reshape(Like_S, length(xrange),length(yrange))) %surface plot
 surf(xrange, yrange, reshape(Like_T, length(xrange),length(yrange)))
 surf(xrange, yrange, reshape(Like_V, length(xrange),length(yrange)))
 xlabel('Sector Values');
 ylabel('Box Values');
-
 
 ThreshS =  (1 / ( 2 * pi * sqrt( det( COV_S )))) * exp( -3 ); 
 ThreshV =  (1 / ( 2 * pi * sqrt( det( COV_V )))) * exp( -3 ); 
